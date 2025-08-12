@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "moduleResolution": "node"
+  },
+  "include": ["app/**/*.ts", "types/**/*.d.ts", "services/**/*.ts"],
+  "exclude": ["node_modules"]
+}

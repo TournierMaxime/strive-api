@@ -1,0 +1,34 @@
+services:
+  server:
+    hostname: ${SERVICE_HOSTNAME}
+    container_name: strive-api
+
+    build:
+      context: .
+      dockerfile: ./node.Dockerfile
+      args:
+        USER_ID: 1000
+        GROUP_ID: 1000
+
+    ports:
+      - "${EXPRESS_PORT}:${EXPRESS_PORT}"
+
+    working_dir: /var/app
+
+    volumes:
+      - .:/var/app
+      - /Users/maximetournier/HealthData/DBs:/var/app/data
+
+    environment:
+      NODE_ENV: "${NODE_ENV}"
+      DB_PATH: "${DB_PATH}"
+
+    user: 1000:1000
+
+    command: npm run dev
+
+    logging:
+      driver: json-file
+      options:
+        max-file: "10"
+        max-size: "10m"

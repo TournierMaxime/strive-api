@@ -1,0 +1,40 @@
+name: Déploiement NAS auto
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: [self-hosted]
+
+    env:
+      SERVICE_ID: ${{ secrets.SERVICE_ID }}
+      SERVICE_HOSTNAME: ${{ secrets.SERVICE_HOSTNAME }}
+      NODE_ENV: ${{ secrets.NODE_ENV }}
+      EXPRESS_PORT: ${{ secrets.EXPRESS_PORT }}
+
+    steps:
+      - name: 📦 Cloner le dépôt
+        uses: actions/checkout@v3
+
+      - name: 🛑 Stop des conteneurs (si en cours)
+        run: docker compose down || true
+        working-directory: /var/app
+
+      - name: 🧹 Nettoyer /var/app et recopier les sources
+        run: |
+          sudo rm -rf /var/app/*
+          sudo cp -a $(pwd)/. /var/app
+
+      - name: 🛠️ Build et démarrage de l'image Docker
+        run: |
+          docker compose build
+          docker compose up -d
+        working-directory: /var/app
+
+      - name: 🧪 Logs du conteneur (si échec)
+        if: failure()
+        run: docker logs $(docker ps -alq)
+        working-directory: /var/app
