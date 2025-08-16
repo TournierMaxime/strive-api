@@ -5,9 +5,13 @@ class ActivityController {
   async getActivities(req: Request, res: Response) {
     const limit = Math.max(
       1,
-      Math.min(parseInt(String(req.query.limit ?? "100"), 10), 500)
+      Math.min(parseInt(String(req.body.limit ?? "100"), 10), 500)
     )
-    const offset = Math.max(0, parseInt(String(req.query.offset ?? "0"), 10))
+    const offset = Math.max(0, parseInt(String(req.body.offset ?? "0"), 10))
+
+    const { total } = db
+      .prepare(`SELECT COUNT(*) as total FROM activities`)
+      .get() as { total: number }
 
     const activities = db
       .prepare(
@@ -15,7 +19,7 @@ class ActivityController {
       )
       .all(limit, offset)
 
-    res.status(200).json({ activities, meta: { limit, offset } })
+    res.status(200).json({ activities, meta: { limit, offset, total } })
   }
   async getActivity(req: Request, res: Response) {
     const activity_id = req.params.activity_id
