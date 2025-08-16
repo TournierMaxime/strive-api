@@ -11,7 +11,7 @@ class ActivityController {
 
     const activities = db
       .prepare(
-        `SELECT * FROM new_activities ORDER BY start_time DESC LIMIT ? OFFSET ?`
+        `SELECT * FROM activities ORDER BY start_time DESC LIMIT ? OFFSET ?`
       )
       .all(limit, offset)
 
