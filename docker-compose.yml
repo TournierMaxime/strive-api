@@ -17,7 +17,10 @@ services:
 
     volumes:
       - .:/var/app
-      - /Users/maximetournier/HealthData/DBs:/var/app/data
+      - /Users/maximetournier/HealthData:/home/node/HealthData
+      - /Users/maximetournier/Desktop/NAS/GarminDB:/var/app/garmin
+      - ${HOME}/.GarminDb:/home/node/.GarminDb
+      - /Users/maximetournier/HealthData/DBs:/home/node/HealthData/DBs
 
     environment:
       NODE_ENV: "${NODE_ENV}"

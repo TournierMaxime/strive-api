@@ -1,4 +1,5 @@
 import { db } from "../index.js";
+import { runUpdateGarmin } from "../utils/runShell";
 class ActivityController {
     async getActivities(req, res) {
         const limit = Math.max(1, Math.min(parseInt(String(req.body.limit ?? "100"), 10), 500));
@@ -17,6 +18,10 @@ class ActivityController {
             .prepare(`SELECT * FROM new_activities WHERE activity_id = ?`)
             .get(activity_id);
         res.status(200).json({ activity });
+    }
+    async updateActivities(req, res) {
+        await runUpdateGarmin();
+        res.status(200).json({ message: "Mise à jour effectuée !" });
     }
 }
 export const activitiesControllers = new ActivityController();

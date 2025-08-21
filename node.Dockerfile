@@ -1,5 +1,11 @@
 FROM node:20
 
+# ---- System deps: Python + venv + pip + make (et outils build) ----
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+    python3 python3-venv python3-pip make build-essential \
+ && rm -rf /var/lib/apt/lists/*
+
 # Passer en mode root
 USER root
 ARG USER_ID="1000"

@@ -1,1 +1,1 @@
-{"root":["../app/index.ts","../app/controllers/activitiesControllers.ts","../app/lib/prisma.ts","../app/routers/activitiesRouters.ts","../types/express.d.ts"],"version":"5.9.2"}
+{"root":["../app/index.ts","../app/controllers/activitiesControllers.ts","../app/lib/prisma.ts","../app/routers/activitiesRouters.ts","../app/utils/runShell.ts","../types/express.d.ts"],"version":"5.9.2"}

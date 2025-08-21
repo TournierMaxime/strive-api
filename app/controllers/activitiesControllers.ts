@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { db } from "../index.js"
+import { runUpdateGarmin } from "../utils/runShell"
 
 class ActivityController {
   async getActivities(req: Request, res: Response) {
@@ -21,6 +22,7 @@ class ActivityController {
 
     res.status(200).json({ activities, meta: { limit, offset, total } })
   }
+
   async getActivity(req: Request, res: Response) {
     const activity_id = req.params.activity_id
 
@@ -29,6 +31,12 @@ class ActivityController {
       .get(activity_id)
 
     res.status(200).json({ activity })
+  }
+
+  async updateActivities(req: Request, res: Response) {
+    await runUpdateGarmin()
+
+    res.status(200).json({ message: "Mise à jour effectuée !" })
   }
 }
 
