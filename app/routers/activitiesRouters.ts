@@ -15,6 +15,18 @@ const configureActivityRoutes = (app: Application) => {
       activitiesControllers.getActivity(req, res)
     )
   )
+  app.get(
+    "/api/v1/activities/:activity_id/laps",
+    expressAsyncHandler((req, res) =>
+      activitiesControllers.getActivityLaps(req, res)
+    )
+  )
+  app.get(
+    "/api/v1/activities/:activity_id/records",
+    expressAsyncHandler((req, res) =>
+      activitiesControllers.getActivityRecords(req, res)
+    )
+  )
   app.post(
     "/api/v1/activities/update",
     expressAsyncHandler((req, res) =>

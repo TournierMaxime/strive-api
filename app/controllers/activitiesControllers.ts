@@ -27,7 +27,7 @@ class ActivityController {
     const activity_id = req.params.activity_id
 
     const activity = db
-      .prepare(`SELECT * FROM new_activities WHERE activity_id = ?`)
+      .prepare(`SELECT * FROM activities WHERE activity_id = ?`)
       .get(activity_id)
 
     res.status(200).json({ activity })
@@ -37,6 +37,26 @@ class ActivityController {
     await runUpdateGarmin()
 
     res.status(200).json({ message: "Mise à jour effectuée !" })
+  }
+
+  async getActivityLaps(req: Request, res: Response) {
+    const activity_id = req.params.activity_id
+
+    const activity = db
+      .prepare(`SELECT * FROM activity_laps WHERE activity_id = ?`)
+      .all(activity_id)
+
+    res.status(200).json({ activity })
+  }
+
+  async getActivityRecords(req: Request, res: Response) {
+    const activity_id = req.params.activity_id
+
+    const activity = db
+      .prepare(`SELECT * FROM activity_records WHERE activity_id = ?`)
+      .all(activity_id)
+
+    res.status(200).json({ activity })
   }
 }
 
