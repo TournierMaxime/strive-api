@@ -27,7 +27,7 @@ const configureActivityRoutes = (app: Application) => {
       activitiesControllers.getActivityLaps(req, res)
     )
   )
-  app.delete(
+  app.post(
     "/api/v1/activities/:activity_id/lap",
     expressAsyncHandler((req, res) =>
       activitiesControllers.deleteActivityLaps(req, res)
