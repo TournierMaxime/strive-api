@@ -33,6 +33,17 @@ class ActivityController {
     res.status(200).json({ activity })
   }
 
+  async patchActivity(req: Request, res: Response) {
+    const activity_id = req.params.activity_id
+    const { name } = req.body
+
+    const activity = db
+      .prepare(`UPDATE activities SET name = ? WHERE activity_id = ?`)
+      .run(name, activity_id)
+
+    res.status(200).json({ activity, message: "Activity's name updated" })
+  }
+
   async updateActivities(req: Request, res: Response) {
     await runUpdateGarmin()
 
@@ -57,6 +68,17 @@ class ActivityController {
       .all(activity_id)
 
     res.status(200).json({ activity })
+  }
+
+  async deleteActivityLaps(req: Request, res: Response) {
+    const activity_id = req.params.activity_id
+    const { lap } = req.body
+
+    const activity = db
+      .prepare(`DELETE FROM activity_laps WHERE activity_id = ? AND lap = ?`)
+      .run(activity_id, lap)
+
+    res.status(200).json({ activity, message: "Lap deleted !" })
   }
 }
 

@@ -15,10 +15,22 @@ const configureActivityRoutes = (app: Application) => {
       activitiesControllers.getActivity(req, res)
     )
   )
+  app.patch(
+    "/api/v1/activities/:activity_id",
+    expressAsyncHandler((req, res) =>
+      activitiesControllers.patchActivity(req, res)
+    )
+  )
   app.get(
     "/api/v1/activities/:activity_id/laps",
     expressAsyncHandler((req, res) =>
       activitiesControllers.getActivityLaps(req, res)
+    )
+  )
+  app.delete(
+    "/api/v1/activities/:activity_id/lap",
+    expressAsyncHandler((req, res) =>
+      activitiesControllers.deleteActivityLaps(req, res)
     )
   )
   app.get(
